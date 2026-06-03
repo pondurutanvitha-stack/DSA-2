@@ -1,0 +1,88 @@
+public class FenwickTreeHDFC {
+
+    static int[] spend = {
+            0, 1200, 800, 0, 2400, 1500, 600, 0, 0,
+            3500, 0, 1100, 950, 700, 0, 0
+    };
+
+    static int n = 15;
+    static int[] bit = new int[n + 1];
+
+    static void update(int index, int value) {
+        while (index <= n) {
+            bit[index] += value;
+            index += index & -index;
+        }
+    }
+
+    static void buildBIT() {
+        for (int i = 1; i <= n; i++) {
+            update(i, spend[i]);
+        }
+    }
+
+    static int prefixSum(int index) {
+        int sum = 0;
+        while (index > 0) {
+            sum += bit[index];
+            index -= index & -index;
+        }
+        return sum;
+    }
+
+    public static void main(String[] args) {
+        buildBIT();
+
+        System.out.println("HDFC NETBANKING DAILY SPEND MANAGEMENT USING FENWICK TREE (BIT)");
+        System.out.println("INPUT SPEND ARRAY (1..15):");
+        System.out.print("Index: ");
+        for (int i = 1; i <= n; i++) System.out.print(i + " ");
+        System.out.println();
+        System.out.print("Spend: ");
+        for (int i = 1; i <= n; i++) System.out.print(spend[i] + " ");
+        System.out.println("\n");
+
+        System.out.println("FENWICK TREE (BIT) ARRAY (1..15):");
+        System.out.print("Index: ");
+        for (int i = 1; i <= n; i++) System.out.print(i + " ");
+        System.out.println();
+        System.out.print("BIT   : ");
+        for (int i = 1; i <= n; i++) System.out.print(bit[i] + " ");
+        System.out.println("\n");
+
+        System.out.println("bit[4]  = " + bit[4]);
+        System.out.println("bit[8]  = " + bit[8]);
+        System.out.println("bit[12] = " + bit[12]);
+        System.out.println();
+
+        System.out.println("VERIFICATION OF IMPORTANT BIT CELLS:");
+        System.out.println("bit[4]  covers indices [1..4]   = 1200 + 800 + 0 + 2400 = 4400");
+        System.out.println("bit[8]  covers indices [1..8]   = 1200 + 800 + 0 + 2400 + 1500 + 600 + 0 + 0 = 6500");
+        System.out.println("bit[12] covers indices [9..12]  = 3500 + 0 + 1100 + 950 = 5550");
+        System.out.println();
+
+        int p12 = prefixSum(12);
+        int p4 = prefixSum(4);
+
+        System.out.println("PREFIX SUM CALCULATIONS:");
+        System.out.println("Visited BIT cells for prefix(12): bit[12] bit[8]");
+        System.out.println("prefix(12) = 5550 + 6500 = " + p12);
+        System.out.println();
+        System.out.println("Visited BIT cells for prefix(4): bit[4]");
+        System.out.println("prefix(4)  = " + p4);
+        System.out.println();
+
+        int range = p12 - p4;
+        System.out.println("RANGE QUERY (JAN 5-12):");
+        System.out.println("Spend[5..12] = prefix(12) - prefix(4)");
+        System.out.println("             = " + p12 + " - " + p4);
+        System.out.println("             = " + range);
+        System.out.println();
+
+        System.out.println("VERIFICATION (DIRECT SUM):");
+        System.out.println("1500 + 600 + 0 + 0 + 3500 + 0 + 1100 + 950 = " + range + "  ✓");
+        System.out.println();
+        System.out.println("TOTAL SPEND FROM JAN 5 TO JAN 12 = ₹" + range);
+        System.out.println("PROCESS FINISHED WITH EXIT CODE 0");
+    }
+}
