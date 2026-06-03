@@ -1,0 +1,39 @@
+BFS traversal from A up to depth 3
+-------------------------------------------------------
+Current node: A, depth: 0
+Neighbours: [B, C]
+  Added: B at depth 1
+  Added: C at depth 1
+Visited set: [A, B, C]
+
+Current node: B, depth: 1
+Neighbours: [D, E]
+  Added: D at depth 2
+  Added: E at depth 2
+Visited set: [A, B, C, D, E]
+
+Current node: C, depth: 1
+Neighbours: [E, F]
+  Skipped (already visited): E
+  Added: F at depth 2
+Visited set: [A, B, C, D, E, F]
+
+Current node: D, depth: 2
+Neighbours: [G]
+  Added: G at depth 3
+Visited set: [A, B, C, D, E, F, G]
+
+Current node: E, depth: 2
+Neighbours: [G, H]
+  Skipped (already visited): G
+  Added: H at depth 3
+Visited set: [A, B, C, D, E, F, G, H]
+
+Current node: F, depth: 2
+Neighbours: [H, I]
+  Skipped (already visited): H
+  Added: I at depth 3
+Visited set: [A, B, C, D, E, F, G, H, I]
+
+Final reached users (excluding A): [B, C, D, E, F, G, H, I]
+Total unique reach: 8
