@@ -1,0 +1,20 @@
+=== MEDIFLOW HOSPITAL PATIENT INDEXING ===
+Patient IDs Inserted: 20 30 35 40 45 50 60 65 70 75 80 85 90
+BST Inorder Traversal:
+20 30 35 40 45 50 60 65 70 75 80 85 90
+BST Height (edges): 12
+Search 60 in BST: Found
+Search 55 in BST: Not Found
+BST Inorder After Deletions: 20 35 40 45 50 60 65 75 80 85 90
+
+AVL Inorder Traversal:
+20 30 35 40 45 50 60 65 70 75 80 85 90
+AVL Height (edges): 3
+Search 60 in AVL: Found
+Search 55 in AVL: Not Found
+AVL Inorder After Deletions: 20 35 40 45 50 60 65 75 80 85 90
+
+Performance Comparison:
+BST Height  = 12
+AVL Height  = 3
+Observation: AVL Tree maintains balanced structure and provides O(log n) performance.
