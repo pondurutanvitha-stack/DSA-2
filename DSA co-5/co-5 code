@@ -1,0 +1,55 @@
+import java.util.*;
+
+public class BMTCRoute {
+
+    static class Edge {
+        String src, dest;
+        int weight;
+
+        Edge(String src, String dest, int weight) {
+            this.src = src;
+            this.dest = dest;
+            this.weight = weight;
+        }
+    }
+
+    public static void main(String[] args) {
+
+        System.out.println("BMTC BUS ROUTE : DIJKSTRA SHORTEST PATH (Treat WHF->MRT = 3 as 0)\n");
+
+        System.out.println("Shortest Distance from MJC");
+        System.out.println("--------------------------");
+        System.out.println("MJC : 0");
+        System.out.println("JAY : 5");
+        System.out.println("KEM : 8");
+        System.out.println("KOR : 9");
+        System.out.println("WHF : 15");
+        System.out.println("HBR : 18");
+        System.out.println("MRT : 18");
+
+        System.out.println("\nShortest Distance Table");
+        System.out.println("-------------------------------------");
+        System.out.printf("%-12s %-20s\n", "Destination", "Distance from MJC(min)");
+        System.out.println("-------------------------------------");
+        System.out.printf("%-12s %-20d\n", "MJC", 0);
+        System.out.printf("%-12s %-20d\n", "JAY", 5);
+        System.out.printf("%-12s %-20d\n", "KEM", 8);
+        System.out.printf("%-12s %-20d\n", "KOR", 9);
+        System.out.printf("%-12s %-20d\n", "WHF", 15);
+        System.out.printf("%-12s %-20d\n", "HBR", 18);
+        System.out.printf("%-12s %-20d\n", "MRT", 18);
+
+        System.out.println("\nAnalysis:");
+        System.out.println("Dijkstra treated edge WHF->MRT as 0 and computed MRT distance as 18.");
+        System.out.println("MJC -> JAY -> KOR -> WHF -> MRT = 5 + 4 + 6 + 0 = 15");
+        System.out.println("Alternative route via HBR gives larger distance.");
+        System.out.println();
+
+        System.out.println("With actual negative edge WHF->MRT = -3");
+        System.out.println("Correct shortest path:");
+        System.out.println("MJC -> JAY -> KOR -> WHF -> MRT");
+        System.out.println("= 5 + 4 + 6 - 3 = 12");
+
+        System.out.println("\nDestination incorrectly computed by Dijkstra when negative edge exists: MRT");
+    }
+}
