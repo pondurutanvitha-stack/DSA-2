@@ -1,0 +1,134 @@
+import java.util.*;
+
+public class BMTCRoute {
+
+    static class Edge {
+        String source, destination;
+        int weight;
+
+        Edge(String source, String destination, int weight) {
+            this.source = source;
+            this.destination = destination;
+            this.weight = weight;
+        }
+    }
+
+    static final int INF = Integer.MAX_VALUE;
+
+    public static void dijkstra(Map<String, List<Edge>> graph, String start) {
+        Map<String, Integer> distance = new HashMap<>();
+
+        for (String vertex : graph.keySet()) {
+            distance.put(vertex, INF);
+        }
+
+        distance.put(start, 0);
+
+        PriorityQueue<String> pq =
+                new PriorityQueue<>(Comparator.comparingInt(distance::get));
+
+        pq.add(start);
+
+        while (!pq.isEmpty()) {
+            String current = pq.poll();
+
+            for (Edge edge : graph.get(current)) {
+                int newDist = distance.get(current) + edge.weight;
+
+                if (newDist < distance.get(edge.destination)) {
+                    distance.put(edge.destination, newDist);
+                    pq.add(edge.destination);
+                }
+            }
+        }
+
+        System.out.println("\nBMTC BUS ROUTE : DIJKSTRA SHORTEST PATH (Treat WHF->MRT = 3 as 0)\n");
+
+        System.out.printf("%-15s %-15s\n", "Destination", "Distance from MJC (min)");
+        System.out.println("----------------------------------------");
+
+        for (String city : distance.keySet()) {
+            System.out.printf("%-15s %-15d\n", city, distance.get(city));
+        }
+    }
+
+    public static void bellmanFord(List<Edge> edges,
+                                   List<String> vertices,
+                                   String source) {
+
+        Map<String, Integer> dist = new HashMap<>();
+
+        for (String v : vertices) {
+            dist.put(v, INF);
+        }
+
+        dist.put(source, 0);
+
+        for (int i = 1; i < vertices.size(); i++) {
+            for (Edge edge : edges) {
+
+                if (dist.get(edge.source) != INF &&
+                        dist.get(edge.source) + edge.weight < dist.get(edge.destination)) {
+
+                    dist.put(edge.destination,
+                            dist.get(edge.source) + edge.weight);
+                }
+            }
+        }
+
+        System.out.println("\nBellman-Ford Result (with WHF->MRT = -3)\n");
+
+        System.out.printf("%-15s %-15s\n", "Destination", "Distance from MJC");
+        System.out.println("----------------------------------------");
+
+        for (String v : vertices) {
+            System.out.printf("%-15s %-15d\n", v, dist.get(v));
+        }
+    }
+
+    public static void main(String[] args) {
+
+        List<String> vertices =
+                Arrays.asList("MJC", "KEM", "JAY", "KOR", "WHF", "HBR", "MRT");
+
+        Map<String, List<Edge>> graph = new HashMap<>();
+
+        for (String v : vertices) {
+            graph.put(v, new ArrayList<>());
+        }
+
+        // Dijkstra version (negative edge treated as 0)
+        graph.get("MJC").add(new Edge("MJC", "KEM", 5));
+        graph.get("MJC").add(new Edge("MJC", "JAY", 9));
+
+        graph.get("KEM").add(new Edge("KEM", "KOR", 4));
+        graph.get("JAY").add(new Edge("JAY", "KOR", 6));
+
+        graph.get("KOR").add(new Edge("KOR", "WHF", 5));
+
+        graph.get("WHF").add(new Edge("WHF", "HBR", 3));
+        graph.get("WHF").add(new Edge("WHF", "MRT", 0));
+
+        graph.get("HBR").add(new Edge("HBR", "MRT", 3));
+
+        dijkstra(graph, "MJC");
+
+        // Bellman-Ford edges
+        List<Edge> edges = new ArrayList<>();
+
+        edges.add(new Edge("MJC", "KEM", 5));
+        edges.add(new Edge("MJC", "JAY", 9));
+
+        edges.add(new Edge("KEM", "KOR", 4));
+        edges.add(new Edge("JAY", "KOR", 6));
+
+        edges.add(new Edge("KOR", "WHF", 5));
+
+        edges.add(new Edge("WHF", "HBR", 3));
+        edges.add(new Edge("WHF", "MRT", -3));
+
+        edges.add(new Edge("HBR", "MRT", 3));
+
+        bellmanFord(edges, vertices, "MJC");
+    }
+}
