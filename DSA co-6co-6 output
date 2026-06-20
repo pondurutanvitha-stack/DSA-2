@@ -1,0 +1,65 @@
+PS C:\DSA-2> javac KnapsackLogistics.java
+PS C:\DSA-2> java KnapsackLogistics
+
+=========================================
+ BANGALORE TO MUMBAI LOGISTICS
+     0/1 KNAPSACK PROBLEM
+=========================================
+
+Truck Capacity = 24 tons
+
+Items (Weight, Value)
+
+A -> (5,40)
+B -> (8,50)
+C -> (3,20)
+D -> (10,70)
+E -> (4,30)
+F -> (6,35)
+G -> (7,45)
+H -> (2,15)
+
+-----------------------------------------
+GREEDY APPROACH (Value/Weight Ratio)
+-----------------------------------------
+
+Order:
+A -> H -> E -> D -> C -> G -> B -> F
+
+Packed Items:
+A H E D
+
+Total Weight = 21 tons
+Total Value  = ₹155k
+
+-----------------------------------------
+BETTER VALID SUBSET
+-----------------------------------------
+
+Items:
+D B C E
+
+Total Weight = 25 tons
+(Not Valid: exceeds capacity)
+
+-----------------------------------------
+OPTIMAL SOLUTION (0/1 KNAPSACK DP)
+-----------------------------------------
+
+Selected Items:
+H E D B
+
+Total Weight = 24 tons
+Optimal Value = ₹165k
+
+=========================================
+RESULT
+=========================================
+
+Greedy Value  = ₹155k
+Optimal Value = ₹165k
+
+Therefore, Greedy is not optimal for
+the 0/1 Knapsack problem.
+
+=========================================
