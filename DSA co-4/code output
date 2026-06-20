@@ -1,0 +1,24 @@
+BMTC BUS ROUTE : DIJKSTRA SHORTEST PATH (Treat WHF->MRT = 3 as 0)
+
+Destination     Distance from MJC (min)
+----------------------------------------
+MJC             0
+KEM             5
+JAY             9
+KOR             9
+WHF             14
+HBR             17
+MRT             14
+
+
+Bellman-Ford Result (with WHF->MRT = -3)
+
+Destination     Distance from MJC
+----------------------------------------
+MJC             0
+KEM             5
+JAY             9
+KOR             9
+WHF             14
+HBR             17
+MRT             11
