@@ -1,0 +1,34 @@
+BMTC BUS ROUTE : DIJKSTRA SHORTEST PATH (Treat WHF->MRT = 3 as 0)
+
+Shortest Distance from MJC
+--------------------------
+MJC : 0
+JAY : 5
+KEM : 8
+KOR : 9
+WHF : 15
+HBR : 18
+MRT : 18
+
+Shortest Distance Table
+-------------------------------------
+Destination  Distance from MJC(min)
+-------------------------------------
+MJC          0
+JAY          5
+KEM          8
+KOR          9
+WHF          15
+HBR          18
+MRT          18
+
+Analysis:
+Dijkstra treated edge WHF->MRT as 0 and computed MRT distance as 18.
+
+With actual negative edge WHF->MRT = -3
+
+Correct shortest path:
+MJC -> JAY -> KOR -> WHF -> MRT
+= 5 + 4 + 6 - 3 = 12
+
+Destination incorrectly computed by Dijkstra when negative edge exists: MRT
